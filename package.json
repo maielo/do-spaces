@@ -30,6 +30,14 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maielo/do-spaces.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maielo/do-spaces/issues"
+  },
+  "homepage": "https://github.com/maielo/do-spaces#readme",
   "name": "do-spaces",
   "author": "Maielo",
   "module": "dist/do-spaces.esm.js",
