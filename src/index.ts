@@ -1,5 +1,8 @@
 const AWS = require('aws-sdk');
-class Spaces {
+const mime = require('mime-types');
+
+export type Privacy = 'private' | 'public-read';
+export class Spaces {
   s3: any;
   bucket: string;
 
@@ -23,6 +26,11 @@ class Spaces {
 
     this.bucket = bucket;
     this.s3 = s3;
+  }
+  _getContentTypeFromExtension(pathname: string) {
+    const _split = pathname.split('.');
+    const extension = _split[_split.length - 1];
+    return mime.lookup(extension) || 'application/octet-stream';
   }
   async createFolder({ path }: { path: string }) {
     if (path[path.length - 1] !== '/') {
@@ -56,17 +64,46 @@ class Spaces {
     file,
   }: {
     pathname: string;
-    privacy: 'private' | 'public-read';
-    file: Blob | BinaryType | string;
+    privacy: Privacy;
+    file: Blob | BinaryType | string | Buffer;
   }) {
     const params = {
       Bucket: this.bucket,
       Key: pathname,
       Body: file,
       ACL: privacy,
+      ContentType: this._getContentTypeFromExtension(pathname),
     };
 
     return await this.s3.putObject(params).promise();
+  }
+  async copyFile({
+    pathname,
+    copyPathname,
+    privacy,
+    fromBucket,
+  }: {
+    pathname: string;
+    copyPathname: string;
+    privacy: Privacy;
+    fromBucket?: string;
+  }) {
+    if (copyPathname[0] === '/') {
+      throw new Error(
+        'do-spaces ~ copyFile - copyPathname must not start with /'
+      );
+    }
+
+    const _copyPathname = `/${fromBucket || this.bucket}/${copyPathname}`;
+
+    const params = {
+      Bucket: this.bucket,
+      Key: pathname,
+      CopySource: _copyPathname,
+      ACL: privacy,
+    };
+
+    return await this.s3.copyObject(params).promise();
   }
 
   async deleteFile({ pathname }: { pathname: string }) {
