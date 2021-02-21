@@ -16,7 +16,7 @@
     "build": "tsdx build --target node",
     "lint": "tsdx lint",
     "prepare": "tsdx build --target node",
-    "publish": "np --yolo --no-2fa",
+    "publish": "np --no-tests --no-2fa",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
