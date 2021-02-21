@@ -12,10 +12,11 @@
   },
   "scripts": {
     "start": "tsdx watch --onSuccess \"node ./dist/index.js\"",
-    "test": "npx nodemon test/test.js",
+    "customtest": "npx nodemon test/test.js",
     "build": "tsdx build --target node",
     "lint": "tsdx lint",
     "prepare": "tsdx build --target node",
+    "publish": "np --yolo --no-2fa",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
