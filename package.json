@@ -42,6 +42,15 @@
   "homepage": "https://github.com/maielo/do-spaces#readme",
   "name": "do-spaces",
   "author": "Maielo",
+  "keywords": [
+    "digital-ocean",
+    "digital-ocean-spaces",
+    "ts",
+    "typescript",
+    "spaces",
+    "promises",
+    "async"
+  ],
   "module": "dist/do-spaces.esm.js",
   "size-limit": [
     {
