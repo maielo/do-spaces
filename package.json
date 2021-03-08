@@ -16,7 +16,7 @@
     "build": "tsdx build --target node",
     "lint": "tsdx lint",
     "prepare": "tsdx build --target node",
-    "np:publish": "np --no-tests --no-2fa",
+    "np:publish": "git push origin master && np --no-tests --no-2fa",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
@@ -49,7 +49,8 @@
     "typescript",
     "spaces",
     "promises",
-    "async"
+    "async",
+    "node"
   ],
   "module": "dist/do-spaces.esm.js",
   "size-limit": [
