@@ -58,7 +58,7 @@ await spaces.deleteFolder({
   path: `/some/test/path/`,
   awsListParams, //optional - used to list items before deleting - `s3.listObjects`
   awsDeleteParams, // optional - used to delete `s3.deleteObjects`
-})
+});
 
 // folders are automatically created, no need to createthem beforehand
 // automatically determines mime-type
@@ -67,12 +67,12 @@ await spaces.uploadFile({
     privacy: "public-read", // 'private' | 'public-read' (DO supports only those)
     file,// Blob, string...
     awsParams  // optional - `s3.putObject`
-})
+});
 
 await spaces.downloadFile({
-    pathname: "/some/test/path/myfile.txt",
+    pathname: "/some/test/path/myfile.txt", // or link https://<bucket>.<endpoint>/path/to/file
     awsParams // optional -  `s3.getObject`
-})
+});
 
 // if there are more then 1000 files you will recieve in response `nextMarker`,
 // to continue with listing
@@ -81,7 +81,7 @@ await spaces.listFiles({
     path: `/some/test/path/` ,
     nextMarker, // optional - from which path it should start listing (supplied)
     awsParams, // optional - `s3.getObjects`
-})
+});
 
 await spaces.copyFile({
     pathname: "/test/newFile.txt",

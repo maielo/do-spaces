@@ -52,6 +52,7 @@ export type DeleteFolder = {
 export class Spaces {
   s3: any;
   bucket: string;
+  endpoint: string;
 
   constructor({ endpoint, accessKey, secret, bucket }: Credentials) {
     const spacesEndpoint = new AWS.Endpoint(endpoint);
@@ -61,6 +62,7 @@ export class Spaces {
       secretAccessKey: secret,
     });
 
+    this.endpoint = endpoint;
     this.bucket = bucket;
     this.s3 = s3;
   }
@@ -140,9 +142,20 @@ export class Spaces {
   }
 
   public async downloadFile({ pathname, awsParams }: FileParam) {
+    let _pathname = pathname;
+    const _fullUrl = `https://${this.bucket}.${this.endpoint}`;
+
+    if (_pathname.indexOf(_fullUrl) === 0) {
+      _pathname = _pathname.replace(_fullUrl, '');
+    }
+
+    if (_pathname[0] === '/') {
+      _pathname = _pathname.replace('/', '');
+    }
+
     const params = {
       Bucket: this.bucket,
-      Key: pathname,
+      Key: _pathname,
       ...awsParams,
     };
 
