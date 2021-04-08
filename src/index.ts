@@ -45,8 +45,8 @@ export type FileParam = {
 
 export type DeleteFolder = {
   path: string;
-  awsListParams: AwsParam;
-  awsDeleteParams: AwsParam;
+  awsListParams?: AwsParam;
+  awsDeleteParams?: AwsParam;
 };
 
 export class Spaces {
