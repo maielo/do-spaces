@@ -21,9 +21,13 @@ const Spaces = require('do-spaces').default;
 import Spaces from 'do-spaces';
 
 const spaces = new Spaces({
-  endpoint: `<endpoint>`, // under settings of bucket in digital ocean
-  accessKey: `<access_key>`, // in GLOBAL settings of digital ocean
-  secret: `<secret>`, // in GLOBAL settings of digital ocean
+  // under settings of bucket in digital ocean (e.g. nyc3.digitaloceanspaces.com)
+  endpoint: `<endpoint>`,
+  // in GLOBAL settings of digital ocean
+  accessKey: `<access_key>`,
+  // in GLOBAL settings of digital ocean
+  secret: `<secret>`,
+  // `https://<name_of_the_bucket>.<urlOfDigitalOcean>` (e.g. hello-world.nyc3.digitaloceanspaces.com so bucket is: hello-world );
   bucket: `<name_of_the_bucket>`,
 });
 ```
