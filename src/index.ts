@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk';
+import AWS, { S3 } from 'aws-sdk';
 import mime from 'mime-types';
 
 type AwsParam = { [key: string]: any };
@@ -50,7 +50,7 @@ export type DeleteFolder = {
 };
 
 export class Spaces {
-  s3: any;
+  s3: S3;
   bucket: string;
   endpoint: string;
 
