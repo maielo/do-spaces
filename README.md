@@ -1,6 +1,6 @@
 # do-spaces
 
-package for simple managing Digital Ocean spaces written in Typescript
+package for simple managing file operations hosted on "Digital Ocean Spaces" written in Typescript
 
 ### Motivation
 
@@ -60,7 +60,7 @@ await spaces.deleteFolder({
   awsDeleteParams, // optional - used to delete `s3.deleteObjects`
 });
 
-// folders are automatically created, no need to createthem beforehand
+// folders are automatically created, no need to create folders beforehand
 // automatically determines mime-type
 await spaces.uploadFile({
     pathname: `/some/test/path/myfile.txt`,
@@ -74,7 +74,7 @@ await spaces.downloadFile({
     awsParams // optional -  `s3.getObject`
 });
 
-// if there are more then 1000 files you will recieve in response `nextMarker`,
+// if there are more then 1000 files you will receive in response `nextMarker`,
 // to continue with listing
 await spaces.listFiles({
     maxFiles = 1000, // optional - default is 1000 (max allowed in DO/AWS)
@@ -87,7 +87,7 @@ await spaces.copyFile({
     pathname: "/test/newFile.txt",
     copiedPathname: "/test/copied.txt",
     privacy: "public-read", // 'private' | 'public-read'
-    fromBucket, // optional - differnt bucket name if copied from elsewhere
+    fromBucket, // optional - different bucket name if copied from elsewhere
     awsParams, // optional -`s3.copyObject`
 });
 
