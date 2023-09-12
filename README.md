@@ -1,8 +1,8 @@
 # do-spaces
 
-![do-spaces unnoficial package readme banner](https://user-images.githubusercontent.com/8983870/239910462-a037cf98-6bce-4c8b-9399-a4382f6a41c2.png)
-
 Unofficial package for simple managing file operations hosted on "Digital Ocean Spaces" written in Typescript
+
+![do-spaces unnoficial package readme banner](https://user-images.githubusercontent.com/8983870/239910462-a037cf98-6bce-4c8b-9399-a4382f6a41c2.png)
 
 ### Motivation
 
