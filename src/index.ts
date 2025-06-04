@@ -66,6 +66,10 @@ export class Spaces {
     this.bucket = bucket;
     this.s3 = s3;
   }
+  private _removeLeadingSlash(pathname: string) {
+    return pathname[0] === '/' ? pathname.slice(1) : pathname;
+  }
+
   private _getContentTypeFromExtension(pathname: string) {
     const _split = pathname.split('.');
     const extension = _split[_split.length - 1];
@@ -78,7 +82,7 @@ export class Spaces {
 
     const params = {
       Bucket: this.bucket,
-      Key: path,
+      Key: this._removeLeadingSlash(path),
       ...awsParams,
     };
 
@@ -149,13 +153,9 @@ export class Spaces {
       _pathname = _pathname.replace(_fullUrl, '');
     }
 
-    if (_pathname[0] === '/') {
-      _pathname = _pathname.replace('/', '');
-    }
-
     const params = {
       Bucket: this.bucket,
-      Key: _pathname,
+      Key: this._removeLeadingSlash(_pathname),
       ...awsParams,
     };
 
@@ -169,13 +169,13 @@ export class Spaces {
     awsParams,
   }: ListFiles) {
     if (path[path.length - 1] !== '/') {
-      throw new Error("do-spaces ~ deleteFolder - path must end with '/'");
+      throw new Error("do-spaces ~ listFiles - path must end with '/'");
     }
 
     const params = {
       Bucket: this.bucket,
       MaxKeys: maxFiles,
-      Prefix: path,
+      Prefix: this._removeLeadingSlash(path),
       Marker: nextMarker,
       ...awsParams,
     };
@@ -186,7 +186,7 @@ export class Spaces {
   public async uploadFile({ pathname, privacy, file, awsParams }: UploadFile) {
     const params = {
       Bucket: this.bucket,
-      Key: pathname,
+      Key: this._removeLeadingSlash(pathname),
       Body: file,
       ACL: privacy,
       ContentType: this._getContentTypeFromExtension(pathname),
@@ -202,17 +202,12 @@ export class Spaces {
     fromBucket,
     awsParams,
   }: CopyFile) {
-    if (copiedPathname[0] === '/') {
-      throw new Error(
-        'do-spaces ~ copyFile - copyPathname must not start with /'
-      );
-    }
-
-    const _copyPathname = `/${fromBucket || this.bucket}/${copiedPathname}`;
+    const _copyPathname = `/${fromBucket ||
+      this.bucket}/${this._removeLeadingSlash(copiedPathname)}`;
 
     const params = {
       Bucket: this.bucket,
-      Key: pathname,
+      Key: this._removeLeadingSlash(pathname),
       CopySource: _copyPathname,
       ACL: privacy,
       ...awsParams,
@@ -224,7 +219,7 @@ export class Spaces {
   public async deleteFile({ pathname, awsParams }: FileParam) {
     const params = {
       Bucket: this.bucket,
-      Key: pathname,
+      Key: this._removeLeadingSlash(pathname),
       ...awsParams,
     };
 
