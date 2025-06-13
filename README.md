@@ -90,8 +90,8 @@ await spaces.listFiles({
 });
 
 await spaces.copyFile({
-    pathname: "/test/newFile.txt",
-    copiedPathname: "/test/copied.txt",
+    targetPathname: "/test/newFile.txt",
+    sourcePathname: "/test/originalFile.txt",
     privacy: "public-read", // 'private' | 'public-read'
     fromBucket, // optional - different bucket name if copied from elsewhere
     awsParams, // optional -`s3.copyObject`
