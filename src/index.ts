@@ -26,8 +26,8 @@ export type UploadFile = {
 };
 
 export type CopyFile = {
-  pathname: string;
-  copiedPathname: string;
+  targetPathname: string;
+  sourcePathname: string;
   privacy: Privacy;
   fromBucket?: string;
   awsParams?: AwsParam;
@@ -196,19 +196,20 @@ export class Spaces {
     return await this.s3.putObject(params).promise();
   }
   public async copyFile({
-    pathname,
-    copiedPathname,
+    targetPathname,
+    sourcePathname,
     privacy,
     fromBucket,
     awsParams,
   }: CopyFile) {
-    const _copyPathname = `/${fromBucket ||
-      this.bucket}/${this._removeLeadingSlash(copiedPathname)}`;
+    const _sourcePathname = `/${
+      fromBucket || this.bucket
+    }/${this._removeLeadingSlash(sourcePathname)}`;
 
     const params = {
       Bucket: this.bucket,
-      Key: this._removeLeadingSlash(pathname),
-      CopySource: _copyPathname,
+      Key: this._removeLeadingSlash(targetPathname),
+      CopySource: _sourcePathname,
       ACL: privacy,
       ...awsParams,
     };
